@@ -1,14 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precision Two-Row Bento</title>
+    <title>LQ Makharij</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
-        /* Arabic Letters Font */
         @font-face {
             font-family: 'Muhammadi';
             src: url('Muhammadi.ttf') format('truetype');
@@ -16,7 +15,6 @@
             font-style: normal;
         }
 
-        /* Urdu Description Font */
         @font-face {
             font-family: 'Nastaleeq';
             src: url('nastaleeq.ttf') format('truetype');
@@ -24,18 +22,21 @@
             font-style: normal;
         }
 
-        /* Beautiful English Font */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --neon-throat: #581c87;
-            --neon-tongue: #1e3a8a;
-            --neon-lips: #064e3b;
-            --neon-nose: #831843;
-            --neon-cavity: #164e63;
-            --sub-card: rgba(255, 255, 255, 0.05);
-            --sub-card-hover: rgba(255, 255, 255, 0.15);
-            --sub-card-active: rgba(255, 255, 255, 0.3);
+            --bg-primary: #121418;       
+            --bg-secondary: #1a1d24;     
+            
+            --color-throat: #2c2e3e;     
+            --color-tongue: #283130;     
+            --color-lips: #382d2a;       
+            --color-nose: #2b2b2b;       
+            --color-cavity: #252c31;     
+
+            --text-main: #f3f4f6;
+            --text-muted: #8a94a6;
+            --border-ui: rgba(255, 255, 255, 0.05);
         }
 
         * {
@@ -46,14 +47,14 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #000;
+            background-color: var(--bg-primary);
             height: 100vh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            color: #fff;
+            color: var(--text-main);
         }
 
         .screen-content {
@@ -76,24 +77,18 @@
             flex-direction: column;
         }
 
-        #dashboard-view {
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* --- STABLE TOP PREVIEW PANEL --- */
+        /* --- TOP HEADER PREVIEW --- */
         #hover-preview-panel {
-            height: 160px; 
+            height: 150px; 
             width: 100vw;
-            background: #111; 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background-color: var(--bg-secondary); 
+            border-bottom: 1px solid var(--border-ui);
             display: flex;
             justify-content: space-between; 
             align-items: center;
-            padding: 0 3rem;
+            padding: 0 4rem;
             z-index: 10;
-            transition: background-color 0.3s ease;
-            position: relative;
+            transition: background-color 0.4s ease;
         }
 
         .preview-text-trigger {
@@ -103,95 +98,93 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            margin: 0 1rem;
+            margin: 0 2rem;
             overflow: hidden;
-        }
-
-        .preview-text-trigger:hover .preview-urdu {
-            filter: brightness(1.2);
         }
 
         .preview-urdu {
             font-family: 'Nastaleeq', serif;
-            font-size: 2.2rem; 
-            line-height: 1.6;
+            font-size: 2.1rem; 
+            line-height: 1.5;
             direction: rtl;
-            color: #fff;
+            color: var(--text-main);
             text-align: center;
             width: 100%;
             max-width: 1100px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            opacity: 1;
-            transition: all 0.2s ease;
+            transition: opacity 0.3s ease;
         }
 
+        /* Architectural Minimal Arrows */
         .nav-arrow {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            width: 52px; 
-            height: 52px;
-            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            width: 45px; 
+            height: 45px;
+            border-radius: 4px; 
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.2rem; /* Adjusted for FA icons */
-            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
             user-select: none;
             z-index: 20;
         }
 
         .nav-arrow:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--text-main);
         }
 
-        .nav-arrow:active {
-            transform: scale(0.95);
-        }
-
-        /* The Bento Grid Container */
+        /* --- BENTO GRID SYSTEM --- */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(30, 1fr);
-            grid-template-rows: 2.5fr 1fr; 
+            grid-template-rows: 2.3fr 1fr; 
             flex: 1; 
             width: 100%;
+            gap: 15px;
+            padding: 15px;
         }
 
         .major-region {
             display: flex;
             flex-direction: column;
-            padding: 10px;
+            padding: 16px;
             height: 100%;
             overflow: hidden;
+            border-radius: 8px; 
+            border: 1px solid var(--border-ui);
         }
-
-        .throat { grid-column: span 6;  background-color: var(--neon-throat); }
-        .tongue { grid-column: span 24; background-color: var(--neon-tongue); }
-        .lips   { grid-column: span 20; background-color: var(--neon-lips); }
-        .nose   { grid-column: span 5;  background-color: var(--neon-nose); }
-        .cavity { grid-column: span 5;  background-color: var(--neon-cavity); }
+        
+        .throat { grid-column: span 6;  background-color: var(--color-throat); }
+        .tongue { grid-column: span 24; background-color: var(--color-tongue); }
+        .lips   { grid-column: span 20; background-color: var(--color-lips); }
+        .nose   { grid-column: span 5;  background-color: var(--color-nose); }
+        .cavity { grid-column: span 5;  background-color: var(--color-cavity); }
 
         .major-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            height: 24px;
+            gap: 8px;
+            height: 18px;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
         .sub-container {
             display: grid;
-            gap: 4px;
-            height: calc(100% - 30px);
+            gap: 8px;
+            height: calc(100% - 33px);
         }
 
         .throat .sub-container { grid-template-rows: repeat(3, 1fr); }
@@ -201,39 +194,37 @@
         .cavity .sub-container { grid-template-rows: 1fr; }
 
         .clickable-box {
-            background-color: var(--sub-card);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             height: 100%;
             overflow: hidden;
             outline: none;
         }
 
         .clickable-box:hover {
-            background-color: var(--sub-card-hover);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: scale(0.98);
+            background-color: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .clickable-box.selected, .clickable-box:focus {
-            background-color: var(--sub-card-active);
-            border-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            transform: scale(0.98);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .box-letters {
             font-family: 'Muhammadi', serif;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             direction: rtl;
+            color: var(--text-main);
         }
 
-        /* --- IMMERSIVE READING VIEW --- */
+        /* --- READABLE PLAIN DETAIL VIEW (NO WRAPPER BOX) --- */
         #detail-view {
             width: 100%;
             height: 100vh;
@@ -245,7 +236,9 @@
             top: 0;
             left: 0;
             z-index: 50;
-            padding: 1.5rem;
+            padding: 0 100px; /* Leaves space for side arrows */
+            background-color: var(--bg-primary);
+            transition: background-color 0.4s ease;
         }
 
         #detail-view.active {
@@ -254,29 +247,60 @@
 
         .back-btn {
             position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            top: 2rem;
+            left: 2rem;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
-            border-radius: 50px;
+            border-radius: 4px;
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
-            gap: 10px; /* Space between FA Icon and Text */
+            gap: 10px;
+            z-index: 60;
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(-3px);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--text-main);
         }
 
-        .detail-wrapper {
+        /* Side navigation arrows for Detail Page */
+        .detail-side-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.25s ease;
+            z-index: 60;
+        }
+
+        .detail-side-nav:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .detail-side-nav.left { left: 2rem; }
+        .detail-side-nav.right { right: 2rem; }
+
+        .plain-container {
             width: 100%;
             max-width: 1100px;
             text-align: center;
@@ -284,44 +308,45 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: calc(100vh - 4rem);
+            height: 100%;
+            opacity: 1;
+            transition: opacity 0.3s ease; /* Fade contents on change */
         }
 
         .detail-header-loc {
-            font-size: 1rem;
-            letter-spacing: 2px;
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
             font-weight: 600;
-            opacity: 0.75;
-            margin-bottom: 0.5rem;
-            color: #e2e8f0;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
             font-family: 'Poppins', sans-serif;
         }
 
         .detail-letters {
             font-family: 'Muhammadi', serif;
-            font-size: 8rem;
-            line-height: 1.1;
-            margin: 1rem 0;
-            text-shadow: 0 0 40px rgba(255,255,255,0.15);
+            font-size: 7rem;
+            line-height: 1;
+            margin-bottom: 2.5rem;
+            color: var(--text-main);
         }
 
         .detail-desc-urdu {
             font-family: 'Nastaleeq', serif;
             font-size: 2.4rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
             direction: rtl;
-            color: #fff;
+            color: var(--text-main);
             max-width: 90%;
         }
 
         .detail-desc-eng {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.35rem;
-            line-height: 1.5;
+            font-size: 1.2rem;
+            line-height: 1.6;
             font-weight: 300;
-            color: #cbd5e1;
+            color: var(--text-muted);
             max-width: 85%;
         }
 
@@ -345,9 +370,9 @@
             .clickable-box {
                 height: 100px;
             }
-            .detail-letters { font-size: 6rem; }
+            .detail-letters { font-size: 4.5rem; }
             .detail-desc-urdu { font-size: 1.8rem; }
-            .detail-desc-eng { font-size: 1.1rem; }
+            #detail-view { padding: 0 60px; }
         }
     </style>
 </head>
@@ -358,9 +383,8 @@
     <div id="dashboard-view" class="view-section active">
         
         <div id="hover-preview-panel">
-            
             <div class="nav-arrow" onclick="navPrev()">
-                <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-arrow-left"></i>
             </div>
 
             <div class="preview-text-trigger" onclick="openDetailView()">
@@ -368,13 +392,13 @@
             </div>
 
             <div class="nav-arrow" onclick="navNext()">
-                <i class="fas fa-chevron-right"></i>
+                <i class="fas fa-arrow-right"></i>
             </div>
         </div>
 
         <div class="bento-grid">
             <div class="major-region throat">
-                <div class="major-title">🗣️ Al-Halq</div>
+                <div class="major-title">Al-Halq</div>
                 <div class="sub-container">
                     <div class="clickable-box" tabindex="0" onclick="selectLetter(0)">
                         <div class="box-letters">غ , خ</div>
@@ -389,7 +413,7 @@
             </div>
 
             <div class="major-region tongue">
-                <div class="major-title">👅 Al-Lisaan</div>
+                <div class="major-title">Al-Lisaan</div>
                 <div class="sub-container">
                     <div class="clickable-box" tabindex="0" onclick="selectLetter(3)">
                         <div class="box-letters">ق</div>
@@ -432,7 +456,7 @@
             </div>
 
             <div class="major-region lips">
-                <div class="major-title">👄 Ash-Shafataan</div>
+                <div class="major-title">Ash-Shafataan</div>
                 <div class="sub-container">
                     <div class="clickable-box" tabindex="0" onclick="selectLetter(15)">
                         <div class="box-letters">ف</div>
@@ -450,16 +474,18 @@
             </div>
 
             <div class="major-region nose">
-                <div class="major-title">👃 Al-Khayshoom</div>
+                <div class="major-title">Al-Khayshoom</div>
                 <div class="sub-container">
                     <div class="clickable-box" tabindex="0" onclick="selectLetter(19)">
-                        <div class="box-letters" style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600;">Ghunnah</div>
+                        <div class="box-letters" style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 
+
+500;">Ghunnah</div>
                     </div>
                 </div>
             </div>
 
             <div class="major-region cavity">
-                <div class="major-title">🌬️ Al-Jawf</div>
+                <div class="major-title">Al-Jawf</div>
                 <div class="sub-container">
                     <div class="clickable-box" tabindex="0" onclick="selectLetter(20)">
                         <div class="box-letters">ا , و , ي</div>
@@ -471,9 +497,17 @@
 
     <div id="detail-view">
         <button class="back-btn" onclick="goBack()">
-            <i class="fas fa-chevron-left"></i> Back
+            <i class="fas fa-arrow-left"></i> BACK
         </button>
-        <div class="detail-wrapper">
+
+        <div class="detail-side-nav left" onclick="navPrev()">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="detail-side-nav right" onclick="navNext()">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
+        <div class="plain-container" id="detail-plain-container">
             <div class="detail-header-loc" id="header-loc-label"></div>
             <div class="detail-letters" id="letters-label"></div>
             <div class="detail-desc-urdu" id="desc-urdu-label"></div>
@@ -485,27 +519,87 @@
 
 <script>
     const makhrajData = [
-        { main: '🗣️ Al-Halq', sub: 'Adna al-Halq (Top Throat)', letters: 'غ , خ', eng: 'produced closest to the mouth.', urdu: 'یہ منہ کے سب سے قریبی حصے (حلق کے اوپر والے حصے) سے ادا ہوتے ہیں۔', color: 'var(--neon-throat)' },
-        { main: '🗣️ Al-Halq', sub: 'Wast al-Halq (Middle Throat)', letters: 'ع , ح', eng: 'produced from the middle of the throat.', urdu: 'یہ گلے کے بالکل درمیان والے حصے سے ادا ہوتے ہیں۔', color: 'var(--neon-throat)' },
-        { main: '🗣️ Al-Halq', sub: 'Aqsa al-Halq (Deep Throat)', letters: 'ء , ه', eng: 'produced nearest to the chest.', urdu: 'یہ سینے کے سب سے قریبی حصے (حلق کے آخری حصے) سے ادا ہوتے ہیں۔', color: 'var(--neon-throat)' },
-        { main: '👅 Al-Lisaan', sub: 'Aqsa al-Lisaan (Back of Tongue)', letters: 'ق', eng: 'When the tongue\'s root meets the soft area of the upper palate, a heavy sound letter is produced.', urdu: 'جب زبان کی جڑ اوپر کے نرم تالو سے ملتی ہے، تو یہ پُر آواز حرف ادا ہوتا ہے۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Aqsa al-Lisaan (Back of Tongue)', letters: 'ك', eng: 'It is articulated from the back of the tongue connecting with the hard palate opposite to it.', urdu: 'یہ زبان کے پچھلے حصے کے بالمقابل سخت تالو سے جڑنے پر ادا ہوتا ہے۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Wast al-Lisaan (Middle of Tongue)', letters: 'ج', eng: 'When the middle of the tongue (Wastul Lisaan) and opposite palate are completely joined, letter Jeem is articulated.', urdu: 'جب زبان کا وسط اور اس کے بالمقابل تالو مکمل طور پر مل جائیں تو جیم ادا ہوتا ہے۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Wast al-Lisaan (Middle of Tongue)', letters: 'ش', eng: 'The letter sheen is articulated when the opposing palate and middle of the tongue are not fully connected and leave a small opening for air.', urdu: 'حرف شین تب ادا ہوتا ہے جب زبان کا وسط اور بالمقابل تالو کے درمیان ہوا کا معمولی راستہ رہے۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Wast al-Lisaan (Middle of Tongue)', letters: 'ي', eng: 'The letter Yaa is articulated when the opposing palate and the middle of the tongue leave a larger gap for air passage than sheen.', urdu: 'حرف یاء تب ادا ہوتا ہے جب زبان کا درمیان اور بالمقابل تالو کے درمیان ہوا کا بڑا خلا ہو۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Hafatul Lisaan (Sides of Tongue)', letters: 'ض', eng: 'The tongue\'s left or right upturned sides are raised to touch the top back upper molars.', urdu: 'زبان کی دائیں یا بائیں اوپر اٹھی ہوئی کروٹیں جب اوپر کی داڑھوں سے لگتی ہیں۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Taraf al-Lisaan (Tip of Tongue)', letters: 'ت , د , ط', eng: 'Articulated from the top part of the tip of the tongue, touching the roots of the upper incisors (top front teeth).', urdu: 'زبان کی نوک کے اوپری حصے کے اوپر کے اگلے دانتوں کی جڑوں سے لگنے سے ادا ہوتے ہیں۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Taraf al-Lisaan (Tip of Tongue)', letters: 'ز , س , ص', eng: 'These letters are articulated by pressing the tip of the tongue against the inner part of the lower front teeth.', urdu: 'یہ حروف زبان کی نوک کو نیچے کے سامنے والے دانتوں کے اندرونی حصے پر دبانے سے ادا ہوتے ہیں۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Taraf al-Lisaan (Tip of Tongue)', letters: 'ث , ذ , ظ', eng: 'Articulated when the top of the tip of the tongue touches the edges of the top 2 incisors (part of the tongue will stick out).', urdu: 'زبان کی نوک کا اوپر کا حصہ جب سامنے کے دانتوں کے کناروں سے لگتا ہے (زبان تھوڑی باہر رہے گی)۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Taraf al-Lisaan (Edge of Tongue)', letters: 'ل', eng: 'Originates from the front edge of the tongue, touching the back gums of the upper teeth.', urdu: 'زبان کے اگلے کنارے کے اوپر کے دانتوں کے مسوڑھوں سے ادا ہوتا ہے۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Taraf al-Lisaan (Edge of Tongue)', letters: 'ن', eng: 'Articulated from the edge of the tongue touching the roots of the upper teeth.', urdu: 'زبان کے کنارے کے اوپر کے دانتوں کی جڑوں سے ادا ہوتا ہے۔', color: 'var(--neon-tongue)' },
-        { main: '👅 Al-Lisaan', sub: 'Taraf al-Lisaan (Tip to Gums)', letters: 'ر', eng: 'When the top part of tip of the tongue touches the gums of the upper teeth.', urdu: 'جب زبان کی نوک کا اوپر کا حصہ اوپر والے دانتوں کے مسوڑھوں سے لگتا ہے۔', color: 'var(--neon-tongue)' },
-        { main: '👄 Ash-Shafataan', sub: 'The Lips - Teeth Connection', letters: 'ف', eng: 'This letter is sounded when the edges of the front two teeth touch the wet portion of the bottom lip.', urdu: 'جب سامنے کے دو دانتوں کے کنارے نچلے ہونٹ کے گیلے حصے سے لگ کر الگ ہوتے ہیں۔', color: 'var(--neon-lips)' },
-        { main: '👄 Ash-Shafataan', sub: 'The Lips - Closed Wet', letters: 'ب', eng: 'This letter is sounded when the wet portion of the lips open from a closed position.', urdu: 'جب ہونٹوں کا گیلا حصہ بند حالت سے کھلتا ہے۔', color: 'var(--neon-lips)' },
-        { main: '👄 Ash-Shafataan', sub: 'The Lips - Closed Dry', letters: 'م', eng: 'This letter is sounded when the dry portion of the lips open from a closed position.', urdu: 'جب ہونٹوں کا خشک حصہ بند حالت سے کھلتا ہے۔', color: 'var(--neon-lips)' },
-        { main: '👄 Ash-Shafataan', sub: 'The Lips - Circle Shape', letters: 'و', eng: 'The un-lengthened Waow is articulated by forming a circle of the two lips without the two lips meeting completely.', urdu: 'غیر مدہ واؤ دونوں ہونٹوں کو مکمل ملائے بغیر گول دائرے کی شکل دے کر ادا کیا جاتا ہے۔', color: 'var(--neon-lips)' },
-        { main: '👃 Al-Khayshoom', sub: 'Nasal Cavity & Passage', letters: 'Ghunnah', eng: 'Al Khayshoom has one articulation point, from the nostrils going down.', urdu: 'خیشوم کا ایک ہی مخرج ہے، جو ناک کے نتھنوں سے نیچے کی طرف جاتا ہے۔', color: 'var(--neon-nose)' },
-        { main: '🌬️ Al-Jawf', sub: 'The Hollow Mouth and Throat Space', letters: 'ا , و , ي', eng: 'The empty space between the mouth and throat serves as location and an articulation point. Sound ends with air emptying out.', urdu: 'منہ اور گلے کے درمیان کی خالی جگہ جہاں حروف کی آواز ہوا کے ختم ہونے کے ساتھ ختم ہو جاتی ہے۔', color: 'var(--neon-cavity)' }
+        { main: 'Al-Halq', sub: 'Adna al-Halq (Top Throat)', letters: 'غ , خ', eng: 'produced closest to the mouth.', urdu: 'یہ منہ کے سب سے قریبی حصے 
+
+(حلق کے اوپر والے حصے) سے ادا ہوتے ہیں۔', color: 'var(--color-throat)' },
+        { main: 'Al-Halq', sub: 'Wast al-Halq (Middle Throat)', letters: 'ع , ح', eng: 'produced from the middle of the throat.', urdu: 'یہ گلے کے 
+
+بالکل درمیان والے حصے سے ادا ہوتے ہیں۔', color: 'var(--color-throat)' },
+        { main: 'Al-Halq', sub: 'Aqsa al-Halq (Deep Throat)', letters: 'ء , ه', eng: 'produced nearest to the chest.', urdu: 'یہ سینے کے سب سے قریبی حصے 
+
+(حلق کے آخری حصے) سے ادا ہوتے ہیں۔', color: 'var(--color-throat)' },
+        { main: 'Al-Lisaan', sub: 'Aqsa al-Lisaan (Back of Tongue)', letters: 'ق', eng: 'When the tongue\'s root meets the soft area of the 
+
+upper palate, a heavy sound letter is produced.', urdu: 'جب زبان کی جڑ اوپر کے نرم تالو سے ملتی ہے، تو یہ پُر آواز حرف ادا ہوتا ہے۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Aqsa al-Lisaan (Back of Tongue)', letters: 'ك', eng: 'It is articulated from the back of the tongue 
+
+connecting with the hard palate opposite to it.', urdu: 'یہ زبان کے پچھلے حصے کے بالمقابل سخت تالو سے جڑنے پر ادا ہوتا ہے۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Wast al-Lisaan (Middle of Tongue)', letters: 'ج', eng: 'When the middle of the tongue (Wastul Lisaan) 
+
+and opposite palate are completely joined, letter Jeem is articulated.', urdu: 'جب زبان کا وسط اور اس کے بالمقابل تالو مکمل طور پر مل جائیں تو جیم ادا ہوتا ہے۔', color: 'var
+
+(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Wast al-Lisaan (Middle of Tongue)', letters: 'ش', eng: 'The letter sheen is articulated when the opposing 
+
+palate and middle of the tongue are not fully connected and leave a small opening for air.', urdu: 'حرف شین تب ادا ہوتا ہے جب زبان کا وسط اور بالمقابل تالو کے 
+
+درمیان ہوا کا معمولی راستہ رہے۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Wast al-Lisaan (Middle of Tongue)', letters: 'ي', eng: 'The letter Yaa is articulated when the opposing 
+
+palate and the middle of the tongue leave a larger gap for air passage than sheen.', urdu: 'حرف یاء تب ادا ہوتا ہے جب زبان کا درمیان اور بالمقابل تالو کے درمیان ہوا کا بڑا 
+
+خلا ہو۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Hafatul Lisaan (Sides of Tongue)', letters: 'ض', eng: 'The tongue\'s left or right upturned sides are raised 
+
+to touch the top back upper molars.', urdu: 'زبان کی دائیں یا بائیں اوپر اٹھی ہوئی کروٹیں جب اوپر کی داڑھوں سے لگتی ہیں۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Taraf al-Lisaan (Tip of Tongue)', letters: 'ت , د , ط', eng: 'Articulated from the top part of the tip of the 
+
+tongue, touching the roots of the upper incisors (top front teeth).', urdu: 'زبان کی نوک کے اوپری حصے کے اوپر کے اگلے دانتوں کی جڑوں سے لگنے سے ادا ہوتے ہیں۔', color: 
+
+'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Taraf al-Lisaan (Tip of Tongue)', letters: 'ز , س , ص', eng: 'These letters are articulated by pressing the tip 
+
+of the tongue against the inner part of the lower front teeth.', urdu: 'یہ حروف زبان کی نوک کو نیچے کے سامنے والے دانتوں کے اندرونی حصے پر دبانے سے ادا ہوتے ہیں۔', color: 
+
+'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Taraf al-Lisaan (Tip of Tongue)', letters: 'ث , ذ , ظ', eng: 'Articulated when the top of the tip of the tongue 
+
+touches the edges of the top 2 incisors (part of the tongue will stick out).', urdu: 'زبان کی نوک کا اوپر کا حصہ جب سامنے کے دانتوں کے کناروں سے لگتا ہے (زبان تھوڑی باہر 
+
+رہے گی)۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Taraf al-Lisaan (Edge of Tongue)', letters: 'ل', eng: 'Originates from the front edge of the tongue, 
+
+touching the back gums of the upper teeth.', urdu: 'زبان کے اگلے کنارے کے اوپر کے دانتوں کے مسوڑھوں سے ادا ہوتا ہے۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Taraf al-Lisaan (Edge of Tongue)', letters: 'ن', eng: 'Articulated from the edge of the tongue touching 
+
+the roots of the upper teeth.', urdu: 'زبان کے کنارے کے اوپر کے دانتوں کی جڑوں سے ادا ہوتا ہے۔', color: 'var(--color-tongue)' },
+        { main: 'Al-Lisaan', sub: 'Taraf al-Lisaan (Tip to Gums)', letters: 'ر', eng: 'When the top part of tip of the tongue touches the 
+
+gums of the upper teeth.', urdu: 'جب زبان کی نوک کا اوپر کا حصہ اوپر والے دانتوں کے مسوڑھوں سے لگتا ہے۔', color: 'var(--color-tongue)' },
+        { main: 'Ash-Shafataan', sub: 'The Lips - Teeth Connection', letters: 'ف', eng: 'This letter is sounded when the edges of the front 
+
+two teeth touch the wet portion of the bottom lip.', urdu: 'جب سامنے کے دو دانتوں کے کنارے نچلے ہونٹ کے گیلے حصے سے لگ کر الگ ہوتے ہیں۔', color: 'var(--color-lips)' 
+
+},
+        { main: 'Ash-Shafataan', sub: 'The Lips - Closed Wet', letters: 'ب', eng: 'This letter is sounded when the wet portion of the lips 
+
+open from a closed position.', urdu: 'جب ہونٹوں کا گیلا حصہ بند حالت سے کھلتا ہے۔', color: 'var(--color-lips)' },
+        { main: 'Ash-Shafataan', sub: 'The Lips - Closed Dry', letters: 'م', eng: 'This letter is sounded when the dry portion of the lips 
+
+open from a closed position.', urdu: 'جب ہونٹوں کا خشک حصہ بند حالت سے کھلتا ہے۔', color: 'var(--color-lips)' },
+        { main: 'Ash-Shafataan', sub: 'The Lips - Circle Shape', letters: 'و', eng: 'The un-lengthened Waow is articulated by forming a 
+
+circle of the two lips without the two lips meeting completely.', urdu: 'غیر مدہ واؤ دونوں ہونٹوں کو مکمل ملائے بغیر گول دائرے کی شکل دے کر ادا کیا جاتا ہے۔', color: 'var(--
+
+color-lips)' },
+        { main: 'Al-Khayshoom', sub: 'Nasal Cavity & Passage', letters: 'Ghunnah', eng: 'Al Khayshoom has one articulation point, from 
+
+the nostrils going down.', urdu: 'خیشوم کا ایک ہی مخرج ہے، جو ناک کے نتھنوں سے نیچے کی طرف جاتا ہے۔', color: 'var(--color-nose)' },
+        { main: 'Al-Jawf', sub: 'The Hollow Mouth and Throat Space', letters: 'ا , و , ي', eng: 'The empty space between the mouth and throat 
+
+serves as location and an articulation point. Sound ends with air emptying out.', urdu: 'منہ اور گلے کے درمیان کی خالی جگہ جہاں حروف کی آواز ہوا کے ختم ہونے کے ساتھ 
+
+ختم ہو جاتی ہے۔', color: 'var(--color-cavity)' }
     ];
 
     let currentIndex = 0; 
@@ -513,12 +607,20 @@
     function selectLetter(index) {
         currentIndex = index;
         const data = makhrajData[index];
+        
+        // Dynamic dashboard elements
         const panel = document.getElementById('hover-preview-panel');
         const previewText = document.getElementById('preview-text');
 
         panel.style.backgroundColor = data.color; 
-        previewText.innerText = data.urdu;
+        
+        previewText.style.opacity = '0';
+        setTimeout(() => {
+            previewText.innerText = data.urdu;
+            previewText.style.opacity = '1';
+        }, 150);
 
+        // Highlight selected bento card
         const boxes = document.querySelectorAll('.clickable-box');
         boxes.forEach((box, i) => {
             if (i === index) {
@@ -528,6 +630,11 @@
                 box.classList.remove('selected');
             }
         });
+
+        // Sync with dynamic detail elements if currently open
+        if(document.getElementById('detail-view').classList.contains('active')) {
+            updateDetailText(data);
+        }
     }
 
     function navPrev() {
@@ -543,18 +650,26 @@
     }
 
     function openDetailView() {
-        const data = makhrajData[currentIndex];
+        updateDetailText(makhrajData[currentIndex]);
+        document.getElementById('dashboard-view').style.display = 'none';
+        document.getElementById('detail-view').classList.add('active');
+    }
 
-        document.getElementById('header-loc-label').innerText = `${data.main} — ${data.sub}`;
-        document.getElementById('letters-label').innerText = data.letters;
-        document.getElementById('desc-urdu-label').innerText = data.urdu;
-        document.getElementById('desc-eng-label').innerText = data.eng;
-
+    /* Helper utility to handle textual swapping with nice fade-ins */
+    function updateDetailText(data) {
+        const container = document.getElementById('detail-plain-container');
         const detailView = document.getElementById('detail-view');
+
         detailView.style.backgroundColor = data.color;
 
-        document.getElementById('dashboard-view').style.display = 'none';
-        detailView.classList.add('active');
+        container.style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('header-loc-label').innerText = `${data.main} — ${data.sub}`;
+            document.getElementById('letters-label').innerText = data.letters;
+            document.getElementById('desc-urdu-label').innerText = data.urdu;
+            document.getElementById('desc-eng-label').innerText = data.eng;
+            container.style.opacity = '1';
+        }, 200);
     }
 
     function goBack() {
@@ -567,15 +682,14 @@
     };
 
     document.addEventListener('keydown', function(event) {
-        if (document.getElementById('dashboard-view').style.display === 'none') return;
-
+        // Universal Left & Right arrow handling across both main and detail states
         if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
             event.preventDefault();
             navNext();
         } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
             event.preventDefault();
             navPrev();
-        } else if (event.key === 'Enter') {
+        } else if (event.key === 'Enter' && document.getElementById('dashboard-view').style.display !== 'none') {
             openDetailView();
         }
     });
